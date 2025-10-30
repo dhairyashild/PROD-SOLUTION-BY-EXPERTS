@@ -1,0 +1,44 @@
+Our NAT Gateway cost more than the rest of our infra.
+$3,885/month. Just for routing traffic. 
+
+How we found it:
+
+→ AWS bill jumped from $12k → $17k
+→ Traced line by line
+→ NAT Gateway alone: $4,800/month
+
+Why?
+
+→ 89 TB/month through 3 NAT Gateways
+→ Microservices calling external APIs
+→ Docker image pulls
+→ Build-time downloads
+→ S3 uploads, CloudWatch logs
+
+What we fixed:
+
+VPC Endpoints
+— Added S3 + DynamoDB Gateway
+— Saved 34 TB/month
+
+ECR instead of Docker Hub
+— Pulled images internally
+— Saved 22 TB/month
+
+Consolidated API Calls
+— Batching + caching
+— Cut external traffic 60%
+
+Fewer NAT Gateways
+— 3 → 1 (only 1 in prod)
+— Saved $720/month on hourly cost
+
+Now:
+→ 15 TB traffic
+→ $915/month total
+→ Savings: $3,885/month
+→ $46,620/year 
+
+Data transfer is expensive.
+On some level VPC Endpoints are free.
+Don’t wait for a huge bill to audit yours.

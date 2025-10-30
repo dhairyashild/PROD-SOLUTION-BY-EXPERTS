@@ -1,0 +1,61 @@
+80 % of DevOps candidates stumble on these 13 core topics in interviews.
+Maybe you’re one of them.
+
+Learn them - and you’ll stop being “just another DevOps engineer” and start sounding like someone who’s run real systems at scale.
+
+→ 1. IaC Drift & State Management
+- Terraform isn’t magic — state is.
+- Pitfall: editing infra manually = drift, destroy failure, and team chaos.
+- How to practice: terraform import a live resource, break it, run plan and explain the diff.
+
+→ 2. CI/CD Pipelines
+- Build, test, deploy — sounds easy until half your stages run on shared runners.
+- Typical Q: “How do you ensure one bad pipeline doesn’t block all others?”
+- How to practice: create a GitHub Actions matrix build with caching and concurrency control.
+
+→ 3. Secrets Management
+- Secrets don’t belong in Git repos - not even private ones. At least, use .env files
+- Pitfall: Kubernetes Secrets are base64-encoded, not encrypted. Anyone with RBAC read access can see them.
+How to practice:
+- Enable envelope encryption with KMS in Kubernetes (encryptionConfiguration on API server) and Secrets Manager to store secrets combined with externalSecrets operator.
+- Integrate Vault or SOPS for secret encryption/decryption.
+- Rotate and revoke dynamically — don’t rely on static AWS keys.
+
+→ 4. Kubernetes Networking
+- If you can’t explain ClusterIP vs NodePort, you’re not ready.
+- Interview Q: “Pod A can’t reach Pod B — how do you debug it?”
+- How to practice: deploy a pod, run tcpdump, traceroute, and kubectl exec into it.
+
+→ 5. Observability
+- Logs tell stories, metrics tell trends, traces tell truth.
+- Pitfall: no cardinality control = OOM Prometheus.
+- How to practice: deploy Prometheus + Grafana, add custom app metrics, break something, alert on it.
+
+→ 6. Scaling & Auto-Healing
+- “It scales automatically” — until your pod keeps CrashLooping.
+- How to practice: set HPA on CPU and memory, simulate load with hey, watch scaling curve.
+
+→ 7. Networking & Load Balancing
+- NGINX, Traefik, or ALB — same goals, different trade-offs.
+- Pitfall: health checks that lie = half your cluster dark.
+- How to practice: configure readiness vs liveness probes, misconfigure one, observe downtime.
+
+→ 8. Disaster Recovery
+- Backups don’t matter until restore works.
+- Interview Q: “How would you test DR in prod?”
+- How to practice: snapshot an RDS, delete data, restore to a clone, verify checksum parity.
+
+→ 9. Immutable Infrastructure
+- Snowflake servers kill consistency.
+- Pitfall: patching live EC2s instead of redeploying AMIs.
+- How to practice: bake AMIs with Packer, deploy via Terraform, tear down daily.
+
+→ 10. Container Security
+
+- root in Docker ≠ root on host — but it’s close enough to burn you.
+- How to practice: run Trivy scan, fix CVEs, add non-root user to Dockerfile.
+
+Pick one topic.
+Run the drill.
+Become the engineer people trust with production.
+Repost this if you learned something new.
